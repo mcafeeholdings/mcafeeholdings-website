@@ -4,38 +4,403 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>McAfee Holdings</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
-    <link rel="stylesheet" href="/assets/styles/navbar.css">
-    <link rel="stylesheet" href="/assets/styles/hero-background.css">
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
 
-    <script src="/client/hero-background.js" defer type="module"></script>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #17202a;
+            background: #f5f7f9;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        section {
+            padding: 100px 6%;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-label {
+            margin-bottom: 15px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #a17f3f;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-title {
+            margin-bottom: 25px;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            color: #17202a;
+        }
+
+        .section-title strong {
+            font-weight: 700;
+        }
+
+        .section-text {
+            max-width: 700px;
+            font-size: 1.05rem;
+            color: #5d6872;
+        }
+
+        .hero {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-background__image {
+            position: absolute;
+            inset: 0;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            transform: translateZ(0);
+            will-change: opacity;
+        }
+
+        .hero-background__image--current {
+            opacity: 1;
+        }
+
+        .hero-background__image--next {
+            opacity: 0;
+        }
+
+        .hero-background__image--next.is-visible {
+            opacity: 1;
+            transition: opacity 300ms ease;
+        }
+
+        .hero-background__overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: hsl(202.15deg 88.62% 15.69% / 69%);
+        }
+
+        .hero-content {
+            width: min(900px, 90%);
+            margin-top: 50px;
+        }
+
+        .globe {
+            display: block;
+            width: 7rem;
+            height: 7rem;
+            margin: 0 auto 4rem;
+        }
+
+        .globe img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-label {
+            margin-bottom: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .hero-label.color-primary {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            color: #6b98c8;
+        }
+
+        .address {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            display: flex;
+            gap: 0.5rem;
+            margin: auto;
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            color: #6b98c8;
+            text-align: center;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero h1 {
+            margin-bottom: 28px;
+            font-size: clamp(1rem, 2vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.02;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 strong {
+            font-weight: 700;
+        }
+
+        .hero-description {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            max-width: 680px;
+            margin: 5rem auto;
+            overflow: hidden;
+            font-size: 1.1rem;
+            color: #c8a96b;
+            list-style: none;
+            mask-image: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0),
+                rgba(0, 0, 0, 1) 20%,
+                rgba(0, 0, 0, 1) 80%,
+                rgba(0, 0, 0, 0)
+            );
+        }
+
+        .hero-description .wrapper {
+            position: relative;
+            display: flex;
+            gap: 1rem;
+            width: max-content;
+            padding-right: 1rem;
+            animation: leftward 15s linear infinite;
+        }
+
+        .hero-description:hover .wrapper {
+            animation-play-state: paused;
+        }
+
+        .hero-description li {
+            display: inline;
+        }
+
+        @keyframes leftward {
+            from {
+                left: 0;
+            }
+
+            to {
+                left: -100%;
+            }
+        }
+
+        .hero-background-desc {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            text-align: right;
+            border-radius: 15px 0 0 15px;
+        }
+
+        .hero-background-desc a {
+            color: #38bdf8;
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 70px 5%;
+            }
+
+            .hero-content {
+                width: 92%;
+                margin-top: 20px;
+            }
+
+            .globe {
+                width: 5rem;
+                height: 5rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-label.color-primary {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+
+            .hero-description {
+                margin: 3rem auto;
+                font-size: 0.95rem;
+            }
+
+            .hero-background-desc {
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <navbar>
-        <div class="nav-group">
-            <div class="logo">McAfee Holdings</div>
-            <ul class="nav-links">
-                <li><a href="#">Link 1</a></li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-                <li><a href="#">Link 4</a></li>
-            </ul>
-        </div>
-        <div class="btns">
-            <button type="button" class="btn">Example Button</button>
-        </div>
-    </navbar>
-    <div class="hero">
-        <span class="filters">
-            <i class="photos" id="locations"></i>
-        </span>
-        <div class="description backdrop">
-            <span id="location">New York</span>
-            <span>Photo by <a href="#" id="photographer">Photographer</a> on <a href="#" id="source">Source</a></span>
-        </div>
+    <main>
+        <section class="hero">
+            <div id="background" class="hero-background">
+                <div class="hero-background__image hero-background__image--current"></div>
+                <div class="hero-background__image hero-background__image--next"></div>
+                <div class="hero-background__overlay"></div>
+            </div>
+            <div class="hero-content">
+                <span class="globe"><img src="/assets/photos/earth.svg" alt="Globe Icon"></span>
 
-        <div class="center">Investing in Tangible<br>and Intangible Assets</div>
-    </div>
+                <p class="hero-label color-primary">McAfee Holdings LLC</p>
 
+                <h1>Investing in <strong>Intangible Assets</strong></h1>
+
+                <ul class="hero-description">
+                    <span class="wrapper">
+                        <li>Patents</li>
+                        <li>Trademarks</li>
+                        <li>Shelf Companies</li>
+                        <li>Shell Companies</li>
+                        <li>Intellectual Properties</li>
+                    </span>
+
+                    <span class="wrapper">
+                        <li>Patents</li>
+                        <li>Trademarks</li>
+                        <li>Shelf Companies</li>
+                        <li>Shell Companies</li>
+                        <li>Intellectual Properties</li>
+                    </span>
+                </ul>
+
+                <p class="address">(972) 209-5525</p>
+            </div>
+
+            <div class="hero-background-desc">
+                <span id="location">New York</span>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (async () => {
+            const container = document.getElementById("background");
+            const currentImage = container.querySelector(
+                ".hero-background__image--current"
+            );
+            const nextImage = container.querySelector(
+                ".hero-background__image--next"
+            );
+            const location = document.getElementById("location");
+
+            const photographer = document.getElementById("photographer");
+            const source = document.getElementById("source");
+
+            const groups = await fetch("/assets/photos/index.json")
+                .then(response => response.json())
+                .catch(() => []);
+
+            if (!groups.length) {
+                return;
+            }
+
+            let current = -1;
+
+            const preload = async url => {
+                const img = new Image();
+                img.src = url;
+
+                try {
+                    await img.decode();
+                } catch {}
+
+                return img;
+            };
+
+            const getNextPhoto = () => {
+                current = (current + 1) % groups.length;
+
+                const group = groups[current];
+
+                return group[Math.floor(Math.random() * group.length)];
+            };
+
+            const updateDetails = photo => {
+                location.textContent = photo.location;
+
+                if (photographer) {
+                    photographer.textContent = photo.author.name;
+                    photographer.href = photo.author.url;
+                }
+
+                if (source) {
+                    source.textContent = photo.image.platform;
+                    source.href = photo.image.original;
+                }
+            };
+
+            const photo = getNextPhoto();
+
+            await preload(photo.image.path);
+
+            currentImage.style.backgroundImage =
+                `url("${photo.image.path}")`;
+
+            updateDetails(photo);
+
+            let nextPhoto = getNextPhoto();
+            let nextPromise = preload(nextPhoto.image.path);
+
+            setInterval(async () => {
+                const photoToShow = nextPhoto;
+
+                await nextPromise;
+
+                nextImage.style.backgroundImage =
+                    `url("${photoToShow.image.path}")`;
+
+                void nextImage.offsetWidth;
+
+                nextImage.classList.add("is-visible");
+
+                updateDetails(photoToShow);
+
+                nextPhoto = getNextPhoto();
+                nextPromise = preload(nextPhoto.image.path);
+
+                setTimeout(() => {
+                    currentImage.style.backgroundImage =
+                        `url("${photoToShow.image.path}")`;
+
+                    nextImage.classList.remove("is-visible");
+                    nextImage.style.backgroundImage = "";
+                }, 320);
+            }, 5000);
+        })();
+    </script>
 </body>
 </html>

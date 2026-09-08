@@ -1,0 +1,35 @@
+section {
+    padding: 100px 6%;
+}
+
+.section-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-label {
+    margin-bottom: 15px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #a17f3f;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.section-title {
+    margin-bottom: 25px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: #17202a;
+}
+
+.section-title strong {
+    font-weight: 700;
+}
+
+.section-text {
+    max-width: 700px;
+    font-size: 1.05rem;
+    color: #5d6872;
+}

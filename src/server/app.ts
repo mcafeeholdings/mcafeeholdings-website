@@ -13,3 +13,7 @@ app.use(['/client', '/common'], ts2jsRouter);
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(resolve('src/assets/index.html'));
 });
+
+app.get('/temp', (req: Request, res: Response) => {
+  res.sendFile(resolve('src/assets/temp.html'));
+});
