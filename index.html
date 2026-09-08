@@ -163,7 +163,7 @@
             font-size: clamp(1rem, 2vw, 2.5rem);
             font-weight: 400;
             line-height: 1.02;
-            letter-spacing: -2px;
+            letter-spacing: clamp(calc(1rem - 4vw), -2px, -2px);
         }
 
         .hero h1 strong {
@@ -308,6 +308,21 @@
 
     <script>
         (async () => {
+            const url = new URL(window.location.href);
+
+            if (
+                url.hostname === "mcafeeholdings.github.io" &&
+                url.pathname.startsWith("/mcafeeholdings-website")
+            ) {
+                url.hostname = "mcafeeholdings.com";
+                url.pathname = url.pathname.replace(/^\/mcafeeholdings-website/, "") || "/";
+                // TODO: implement this later
+                // window.location.href = url.toString();
+                // return;
+            }
+
+            // Everything else continues normally here.
+
             const container = document.getElementById("background");
             const currentImage = container.querySelector(
                 ".hero-background__image--current"
