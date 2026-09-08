@@ -273,7 +273,7 @@
                 <div class="hero-background__overlay"></div>
             </div>
             <div class="hero-content">
-                <span class="globe"><img src="/assets/photos/earth.svg" alt="Globe Icon"></span>
+                <span class="globe"><img src="assets/photos/earth.svg" alt="Globe Icon"></span>
 
                 <p class="hero-label color-primary">McAfee Holdings LLC</p>
 
@@ -320,7 +320,7 @@
             const photographer = document.getElementById("photographer");
             const source = document.getElementById("source");
 
-            const groups = await fetch("/assets/photos/index.json")
+            const groups = await fetch("assets/photos/index.json")
                 .then(response => response.json())
                 .catch(() => []);
 
